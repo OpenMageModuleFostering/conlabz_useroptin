@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <package>
     <name>Conlabz_Useroptin</name>
-    <version>1.0.1</version>
+    <version>1.0.2</version>
     <stability>stable</stability>
     <license uri="http://www.opensource.org/licenses/gpl-license.php">GNU General Public License (GPL)</license>
     <channel>community</channel>
@@ -10,11 +10,11 @@
     <description>Extension will give possibility enable newsletter confirmation (opt-in) for already registered users.&#xD;
 &#xD;
 Die Extension unterst&#xFC;tzt die M&#xF6;glichkeit einer E-Mail Best&#xE4;tigung f&#xFC;r bereits registrierte Nutzer.</description>
-    <notes>Init extension version</notes>
+    <notes>Stability improvements</notes>
     <authors><author><name>Conlabz GmbH</name><user>conlabz</user><email>ingo@conlabz.de</email></author></authors>
-    <date>2012-11-12</date>
-    <time>12:47:27</time>
+    <date>2013-09-05</date>
+    <time>09:28:31</time>
     <contents><target name="magelocal"><dir name="Conlabz"><dir name="Useroptin"><dir><dir name="Model"><dir name="Newsletter"><file name="Subscriber.php" hash="3d059f356ea930807c65b3792bb786d8"/></dir></dir><dir name="controllers"><file name="AccountController.php" hash="408e22761be5451ad6a511e735f2f6dc"/><file name="ManageController.php" hash="8c874a74b0ad5ec4010f581aa0608a24"/></dir><dir name="etc"><file name="config.xml" hash="1f8bbe36a855612700d547cbf7d0f65a"/><file name="system.xml" hash="c1b2c86ab52c60983cc2418b351b4b97"/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Conlabz_Useroptin.xml" hash="3ea42c7b0f6070edce5ffc159374a8f3"/></dir></target></contents>
     <compatible/>
-    <dependencies><required><php><min>5.2.13</min><max>5.4.7</max></php></required></dependencies>
+    <dependencies><required><php><min>5.2.13</min><max>5.5.3</max></php></required></dependencies>
 </package>
