@@ -2,61 +2,61 @@
 <config>
     <modules>
         <Conlabz_Useroptin>
-            <version>1.0.0</version>
+            <version>1.1.0</version>
         </Conlabz_Useroptin>
     </modules>
-	<global>
-		<helpers>
-			<useroptin>
-				<class>Conlabz_Useroptin_Helper</class>
-			</useroptin>
-		</helpers>
-  		<models>
-			<newsletter>
-				<rewrite>
-					<subscriber>Conlabz_Useroptin_Model_Newsletter_Subscriber</subscriber>
-				</rewrite>
-			</newsletter>
-    		<useroptin>
-        		<class>Conlabz_Useroptin_Model</class>
-    		</useroptin>
-		</models>
-  	</global>
-  	<frontend>
-    	<routers>
-      		<useroptin>
-        		<use>standard</use>
-          		<args>
-            		<module>Conlabz_Useroptin</module>
-            		<frontName>Useroptin</frontName>
-          		</args>
-      		</useroptin>
-      		<newsletter>
-				<use>standard</use>
-          		<args>
-					<modules>
-						<Conlabz_Useroptin before="Mage_Newsletter">Conlabz_Useroptin</Conlabz_Useroptin>
-					</modules>
-				</args>
-			</newsletter>
-			<customer>
-				<args>
-					<modules>
-						<Conlabz_Useroptin before="Mage_Customer">Conlabz_Useroptin</Conlabz_Useroptin>
-					</modules>
-				</args>
-			</customer>
-    	</routers>
-    	<layout>
-    		<updates>
-    			<useroptin>
-    				<file>useroptin.xml</file>
-    			</useroptin>
-    		</updates>
-    	</layout>
-  	</frontend>
-  	<adminhtml>
-  		<translate>
+    <global>
+        <helpers>
+            <useroptin>
+                <class>Conlabz_Useroptin_Helper</class>
+            </useroptin>
+        </helpers>
+        <models>
+            <newsletter>
+                <rewrite>
+                    <subscriber>Conlabz_Useroptin_Model_Newsletter_Subscriber</subscriber>
+                </rewrite>
+            </newsletter>
+            <useroptin>
+                <class>Conlabz_Useroptin_Model</class>
+            </useroptin>
+        </models>
+    </global>
+    <frontend>
+        <routers>
+            <useroptin>
+                <use>standard</use>
+                <args>
+                    <module>Conlabz_Useroptin</module>
+                    <frontName>Useroptin</frontName>
+                </args>
+            </useroptin>
+            <newsletter>
+                <use>standard</use>
+                <args>
+                    <modules>
+                        <Conlabz_Useroptin before="Mage_Newsletter">Conlabz_Useroptin</Conlabz_Useroptin>
+                    </modules>
+                </args>
+            </newsletter>
+            <customer>
+                <args>
+                    <modules>
+                        <Conlabz_Useroptin before="Mage_Customer">Conlabz_Useroptin</Conlabz_Useroptin>
+                    </modules>
+                </args>
+            </customer>
+        </routers>
+        <layout>
+            <updates>
+                <useroptin>
+                    <file>useroptin.xml</file>
+                </useroptin>
+            </updates>
+        </layout>
+    </frontend>
+    <adminhtml>
+        <translate>
             <modules>
                 <Conlabz_Useroptin>
                     <files>

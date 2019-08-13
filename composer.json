@@ -1,13 +1,13 @@
 {
     "name": "OpenMageModuleFostering/Conlabz_Useroptin",
     "type": "magento-module",
-    "license": "GNU-General-Public-License-(GPL)",
+    "license": "Conlabz-GmbH",
     "homepage": "",
-    "description": "Newsletter opt-in for registered users",
+    "description": "The Newsletter Double-Opt-In Extension adds an Opt-In email to newsletter subscriptions by logged-in users.",
     "authors": [
     {
         "name": "Conlabz GmbH",
-        "email": "ingo@conlabz.de"
+        "email": "info@conlabz.de"
     }
 ],
     "suggest": {

@@ -1,13 +1,13 @@
 <?php
+
 include "Mage/Customer/controllers/AccountController.php";
 
-class Conlabz_Useroptin_AccountController extends Mage_Customer_AccountController
-{
+class Conlabz_Useroptin_AccountController extends Mage_Customer_AccountController {
+
     /**
      * Create customer account action
      */
-    public function createPostAction()
-    {
+    public function createPostAction() {
         $session = $this->_getSession();
         if ($session->isLoggedIn()) {
             $this->_redirect('*/*/');
@@ -24,32 +24,15 @@ class Conlabz_Useroptin_AccountController extends Mage_Customer_AccountControlle
             /* @var $customerForm Mage_Customer_Model_Form */
             $customerForm = Mage::getModel('customer/form');
             $customerForm->setFormCode('customer_account_create')
-                ->setEntity($customer);
+                    ->setEntity($customer);
 
             $customerData = $customerForm->extractData($this->getRequest());
 
-			if (Mage::getStoreConfig("newsletter/subscription/confirm_logged_email_template") == 1){
-             
-             	if ($this->getRequest()->getParam('is_subscribed', false)) {
-                
-             		$status = Mage::getModel("newsletter/subscriber")->subscribe($this->getRequest()->getPost('email'));
-                	if ($status == Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) {
-                    	Mage::getSingleton('customer/session')->addSuccess($this->__('Confirmation request has been sent.'));
-                	}
-                	else {
-                    	Mage::getSingleton('customer/session')->addSuccess($this->__('Thank you for your subscription.'));
-                	}
-                
+            if ($this->getRequest()->getParam('is_subscribed', false)) {
+                if (Mage::getStoreConfig("newsletter/subscription/confirm_logged_email_template") != 1) {
+                    $customer->setIsSubscribed(1);
                 }
-            	
-            }else{       
-            
-
-            	if ($this->getRequest()->getParam('is_subscribed', false)) {
-                	$customer->setIsSubscribed(1);
-            	}
-
-			}
+            }
             /**
              * Initialize customer group id
              */
@@ -61,14 +44,14 @@ class Conlabz_Useroptin_AccountController extends Mage_Customer_AccountControlle
                 /* @var $addressForm Mage_Customer_Model_Form */
                 $addressForm = Mage::getModel('customer/form');
                 $addressForm->setFormCode('customer_register_address')
-                    ->setEntity($address);
+                        ->setEntity($address);
 
-                $addressData    = $addressForm->extractData($this->getRequest(), 'address', false);
-                $addressErrors  = $addressForm->validateData($addressData);
+                $addressData = $addressForm->extractData($this->getRequest(), 'address', false);
+                $addressErrors = $addressForm->validateData($addressData);
                 if ($addressErrors === true) {
                     $address->setId(null)
-                        ->setIsDefaultBilling($this->getRequest()->getParam('default_billing', false))
-                        ->setIsDefaultShipping($this->getRequest()->getParam('default_shipping', false));
+                            ->setIsDefaultBilling($this->getRequest()->getParam('default_billing', false))
+                            ->setIsDefaultShipping($this->getRequest()->getParam('default_shipping', false));
                     $addressForm->compactData($addressData);
                     $customer->addAddress($address);
 
@@ -89,6 +72,8 @@ class Conlabz_Useroptin_AccountController extends Mage_Customer_AccountControlle
                     $customerForm->compactData($customerData);
                     $customer->setPassword($this->getRequest()->getPost('password'));
                     $customer->setConfirmation($this->getRequest()->getPost('confirmation'));
+                    $customer->setPasswordConfirmation($this->getRequest()->getPost('confirmation'));
+                    
                     $customerErrors = $customer->validate();
                     if (is_array($customerErrors)) {
                         $errors = array_merge($customerErrors, $errors);
@@ -96,26 +81,26 @@ class Conlabz_Useroptin_AccountController extends Mage_Customer_AccountControlle
                 }
 
                 $validationResult = count($errors) == 0;
-
+                
                 if (true === $validationResult) {
                     $customer->save();
 
-                    Mage::dispatchEvent('customer_register_success',
-                        array('account_controller' => $this, 'customer' => $customer)
+                    Mage::dispatchEvent('customer_register_success', array('account_controller' => $this, 'customer' => $customer)
                     );
 
+                    
                     if ($customer->isConfirmationRequired()) {
                         $customer->sendNewAccountEmail(
-                            'confirmation',
-                            $session->getBeforeAuthUrl(),
-                            Mage::app()->getStore()->getId()
+                                'confirmation', $session->getBeforeAuthUrl(), Mage::app()->getStore()->getId()
                         );
                         $session->addSuccess($this->__('Account confirmation is required. Please, check your email for the confirmation link. To resend the confirmation email please <a href="%s">click here</a>.', Mage::helper('customer')->getEmailConfirmationUrl($customer->getEmail())));
-                        $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure'=>true)));
+                        $this->subscribeCustomer();
+                        $this->_redirectSuccess(Mage::getUrl('*/*/index', array('_secure' => true)));
                         return;
                     } else {
                         $session->setCustomerAsLoggedIn($customer);
                         $url = $this->_welcomeCustomer($customer);
+                        $this->subscribeCustomer();
                         $this->_redirectSuccess($url);
                         return;
                     }
@@ -141,12 +126,24 @@ class Conlabz_Useroptin_AccountController extends Mage_Customer_AccountControlle
                 $session->addError($message);
             } catch (Exception $e) {
                 $session->setCustomerFormData($this->getRequest()->getPost())
-                    ->addException($e, $this->__('Cannot save the customer.'));
+                        ->addException($e, $this->__('Cannot save the customer.'));
             }
         }
 
         $this->_redirectError(Mage::getUrl('*/*/create', array('_secure' => true)));
     }
 
-    
+    public function subscribeCustomer(){
+        if ($this->getRequest()->getParam('is_subscribed', false)) {
+            if (Mage::getStoreConfig("newsletter/subscription/confirm_logged_email_template") == 1) {
+                $status = Mage::getModel("newsletter/subscriber")->subscribe($this->getRequest()->getPost('email'));
+                if ($status == Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) {
+                    Mage::getSingleton('customer/session')->addSuccess($this->__('Confirmation request has been sent.'));
+                } else {
+                    Mage::getSingleton('customer/session')->addSuccess($this->__('Thank you for your subscription.'));
+                }
+            }
+        }
+
+    }
 }

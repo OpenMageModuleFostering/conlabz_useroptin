@@ -1,20 +1,24 @@
 <?xml version="1.0"?>
 <package>
     <name>Conlabz_Useroptin</name>
-    <version>1.0.2</version>
+    <version>1.1.0</version>
     <stability>stable</stability>
-    <license uri="http://www.opensource.org/licenses/gpl-license.php">GNU General Public License (GPL)</license>
+    <license uri="http://conlabz.de/agb">Conlabz GmbH</license>
     <channel>community</channel>
     <extends/>
-    <summary>Newsletter opt-in for registered users</summary>
-    <description>Extension will give possibility enable newsletter confirmation (opt-in) for already registered users.&#xD;
+    <summary>The Newsletter Double-Opt-In Extension adds an Opt-In email to newsletter subscriptions by logged-in users.</summary>
+    <description>Newsletter Double-Opt-In for Customers&#xD;
 &#xD;
-Die Extension unterst&#xFC;tzt die M&#xF6;glichkeit einer E-Mail Best&#xE4;tigung f&#xFC;r bereits registrierte Nutzer.</description>
-    <notes>Stability improvements</notes>
-    <authors><author><name>Conlabz GmbH</name><user>conlabz</user><email>ingo@conlabz.de</email></author></authors>
-    <date>2013-09-05</date>
-    <time>09:28:31</time>
-    <contents><target name="magelocal"><dir name="Conlabz"><dir name="Useroptin"><dir><dir name="Model"><dir name="Newsletter"><file name="Subscriber.php" hash="3d059f356ea930807c65b3792bb786d8"/></dir></dir><dir name="controllers"><file name="AccountController.php" hash="408e22761be5451ad6a511e735f2f6dc"/><file name="ManageController.php" hash="8c874a74b0ad5ec4010f581aa0608a24"/></dir><dir name="etc"><file name="config.xml" hash="1f8bbe36a855612700d547cbf7d0f65a"/><file name="system.xml" hash="c1b2c86ab52c60983cc2418b351b4b97"/></dir></dir></dir></dir></target><target name="mageetc"><dir name="modules"><file name="Conlabz_Useroptin.xml" hash="3ea42c7b0f6070edce5ffc159374a8f3"/></dir></target></contents>
+The extension extends the standard Magento workflow of newsletter subscriptions by logged-in users with an opt-in email. The email is send to the customer after he has chosen a newsletter in his customer profile. The email provides a link to verify the subscription. &#xD;
+&#xD;
+Just enable user newsletter confirmation on &#xD;
+System -&gt; Configuration -&gt; Newsletter -&gt; Logged user need to confirm&#xD;
+Mit dieser Extension wird die Newsletter-Registrierung &#xFC;ber das Kundenprofil "Meine Newsletter" um eine E-Mail erg&#xE4;nzt, in der der Kunde nochmals ausdr&#xFC;cklich den Bezug des Newsletters best&#xE4;tigen muss. Erst damit entspricht die Newsletter-Anmeldung deutscher Rechtsprechung.</description>
+    <notes>Version 1.9.x compatibility </notes>
+    <authors><author><name>Conlabz GmbH</name><user>conlabz</user><email>info@conlabz.de</email></author></authors>
+    <date>2015-06-02</date>
+    <time>10:35:10</time>
+    <contents><target name="mageetc"><dir name="."><file name="Conlabz_Useroptin.xml" hash=""/></dir></target><target name="magelocal"><dir name="Conlabz"><dir name="Useroptin"><dir name="Model"><dir name="Newsletter"><file name="Subscriber.php" hash="02548ba51c4c4225f312f9743ca01366"/></dir></dir><dir name="controllers"><file name="AccountController.php" hash="eeb1529f20e4428efcedf95b175c5867"/><file name="ManageController.php" hash="3efe779c2c0e6d44a859c51426e89d1f"/></dir><dir name="etc"><file name="config.xml" hash="6bff7f8dc475ed9365de0073a17e69e4"/><file name="system.xml" hash="c1b2c86ab52c60983cc2418b351b4b97"/></dir></dir></dir></target></contents>
     <compatible/>
-    <dependencies><required><php><min>5.2.13</min><max>5.5.3</max></php></required></dependencies>
+    <dependencies><required><php><min>5.2.0</min><max>6.0.0</max></php></required></dependencies>
 </package>

@@ -17,6 +17,8 @@ class Conlabz_Useroptin_Model_Newsletter_Subscriber extends Mage_Newsletter_Mode
         $customerSession = Mage::getSingleton('customer/session');
 
         if(!$this->getId()) {
+            Mage::log(get_class($this)."---subscribe", null, "newsletter.log", true);
+            Mage::log($this->randomSequence(), null, "newsletter.log", true);
             $this->setSubscriberConfirmCode($this->randomSequence());
         }
 
@@ -27,6 +29,11 @@ class Conlabz_Useroptin_Model_Newsletter_Subscriber extends Mage_Newsletter_Mode
             ->loadByEmail($email)
             ->getId();
         $isSubscribeOwnEmail = $customerSession->isLoggedIn() && $ownerId == $customerSession->getId();
+        if ($isSubscribeOwnEmail){
+            $isConfirmNeed   = (Mage::getStoreConfig(self::XML_PATH_LOGGED_CONFIRM_EMAIL_TEMPLATE) == 1) ? true : false;
+        }
+        $isConfirmNeed = true;
+        $isSubscribeOwnEmail = true;
 
         if (!$this->getId() || $this->getStatus() == self::STATUS_UNSUBSCRIBED
             || $this->getStatus() == self::STATUS_NOT_ACTIVE
@@ -35,7 +42,7 @@ class Conlabz_Useroptin_Model_Newsletter_Subscriber extends Mage_Newsletter_Mode
                 // if user subscribes own login email - confirmation is not needed
                 $isOwnSubscribes = $isSubscribeOwnEmail;
                 if ($isOwnSubscribes == true){
-                	if (Mage::getStoreConfig(self::XML_PATH_LOGGED_CONFIRM_EMAIL_TEMPLATE) == 1){
+                    if (Mage::getStoreConfig(self::XML_PATH_LOGGED_CONFIRM_EMAIL_TEMPLATE) == 1){
                     	$this->setStatus(self::STATUS_NOT_ACTIVE);
                     }else{
                     	$this->setStatus(self::STATUS_SUBSCRIBED);
@@ -78,20 +85,5 @@ class Conlabz_Useroptin_Model_Newsletter_Subscriber extends Mage_Newsletter_Mode
             throw new Exception($e->getMessage());
         }
     }
-    public function loadByCustomer(Mage_Customer_Model_Customer $customer)
-    {
-        $data = $this->getResource()->loadByCustomer($customer);
-        $this->addData($data);
-        if (!empty($data) && $customer->getId() && !$this->getCustomerId()) {
-            $this->setCustomerId($customer->getId());
-            //$this->setSubscriberConfirmCode($this->randomSequence());
-            if ($this->getStatus()==self::STATUS_NOT_ACTIVE) {
-                $this->setStatus($customer->getIsSubscribed() ? self::STATUS_SUBSCRIBED : self::STATUS_UNSUBSCRIBED);
-            }
-            $this->save();
-        }
-        return $this;
-    }
-    
 
 }
