@@ -1,0 +1,16 @@
+{
+    "name": "OpenMageModuleFostering/Conlabz_Useroptin",
+    "type": "magento-module",
+    "license": "GNU-General-Public-License-(GPL)",
+    "homepage": "",
+    "description": "Newsletter opt-in for registered users",
+    "authors": [
+    {
+        "name": "Conlabz GmbH",
+        "email": "info@conlabz.de"
+    }
+],
+    "suggest": {
+        "magento-hackathon/magento-composer-installer": "*"
+    }
+}
