@@ -30,12 +30,16 @@ class Conlabz_Useroptin_AccountController extends Mage_Customer_AccountControlle
 
 			if (Mage::getStoreConfig("newsletter/subscription/confirm_logged_email_template") == 1){
              
-             	$status = Mage::getModel("newsletter/subscriber")->subscribe($this->getRequest()->getPost('email'));
-                if ($status == Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) {
-                    Mage::getSingleton('customer/session')->addSuccess($this->__('Confirmation request has been sent.'));
-                }
-                else {
-                    Mage::getSingleton('customer/session')->addSuccess($this->__('Thank you for your subscription.'));
+             	if ($this->getRequest()->getParam('is_subscribed', false)) {
+                
+             		$status = Mage::getModel("newsletter/subscriber")->subscribe($this->getRequest()->getPost('email'));
+                	if ($status == Mage_Newsletter_Model_Subscriber::STATUS_NOT_ACTIVE) {
+                    	Mage::getSingleton('customer/session')->addSuccess($this->__('Confirmation request has been sent.'));
+                	}
+                	else {
+                    	Mage::getSingleton('customer/session')->addSuccess($this->__('Thank you for your subscription.'));
+                	}
+                
                 }
             	
             }else{       
