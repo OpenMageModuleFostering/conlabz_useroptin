@@ -1,3 +1,5 @@
+
+
 ## Original Package Description
 
 The Newsletter Double-Opt-In Extension adds an Opt-In email to newsletter subscriptions by logged-in users.
