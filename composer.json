@@ -1,16 +1,19 @@
 {
-    "name": "OpenMageModuleFostering/Conlabz_Useroptin",
+    "name": "OpenMageModuleFostering\/Conlabz_Useroptin",
     "type": "magento-module",
     "license": "Conlabz-GmbH",
     "homepage": "",
     "description": "The Newsletter Double-Opt-In Extension adds an Opt-In email to newsletter subscriptions by logged-in users.",
     "authors": [
-    {
-        "name": "Conlabz GmbH",
-        "email": "info@conlabz.de"
-    }
-],
+        {
+            "name": "Conlabz GmbH",
+            "email": "info@conlabz.de"
+        }
+    ],
     "suggest": {
-        "magento-hackathon/magento-composer-installer": "*"
-    }
+        "magento-hackathon\/magento-composer-installer": "*"
+    },
+    "keywords": [
+        "openmage-module"
+    ]
 }
